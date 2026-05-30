@@ -1,7 +1,64 @@
+import time
+
 import keyboard
 import win32api, win32con
 import pyautogui
-import time
+from qrcode.main import QRCode
+from scapy.all import *
+import qrcode as qr
+
+def tab(number):
+    for offset in range(number):
+        keyboard.press_and_release('tab')
+        time.sleep(1)
+        print(f"Tab{offset}")
+
+def eval(number_of_prof):
+    offsets = 3
+    page_offset = 4
+    sec = 5
+
+    print("Pressing Tab in ")
+    for t in range(sec, 0, -1):
+        print(t)
+        time.sleep(0.9)
+
+    tab()
+    keyboard.press_and_release("enter")
+def M1(duration):
+    sec = 5
+    print("Pressing E and mining in ")
+    for t in range(sec, 0, -1):
+        print(t)
+        time.sleep(0.9)
+
+    for d in range(duration):
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, 0, 0)
+        time.sleep(0.2)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, 0, 0)
+        time.sleep(2.5)
+
+def qrCode(**kwargs):
+    data = input("Enter URL: ")
+
+    qrc = qr.make(data, **kwargs)
+    qrc.show()
+
+
+def constant_e(duration):
+    sec = 5
+    print("Pressing E and mining in ")
+    for t in range(sec, 0, -1):
+        print(t)
+        time.sleep(0.9)
+
+    for dur in range(int(duration)):
+        print(f"{dur}: Pressing E..")
+        time.sleep(0.7)
+        keyboard.press_and_release("q")
+        time.sleep(0.4)
+        keyboard.press_and_release("q")
+
 
 def twerk_2(duration):
     sec = 5
@@ -194,6 +251,10 @@ def menu():
         3. Move
         4. Harvest Berries
         5. Till a single block
+        6. pressing e (toram)
+        7. M1
+        8. Eval
+        9. QR
         0. Exit
         """)
 
@@ -218,6 +279,18 @@ def menu():
             elif int(choice) == 5:
                 print("==========You choose Tilling a block=========")
                 till_the_dirt(int(input("Enter Tilling count: ")))
+            elif int(choice) == 6:
+                print("==========You choose Pressing E=========")
+                constant_e(int(input("Enter Duration: ")))
+            elif int(choice) == 7:
+                print("==========You choose pressing M1=========")
+                M1(int(input("enter duration")))
+            elif int(choice) == 8:
+                print("==========You choose automated eval=========")
+                eval(9)
+            elif int(choice) == 9:
+                print("==========You choose QR=========")
+                qrCode()
             elif int(choice) == 0:
                 break
         else:
